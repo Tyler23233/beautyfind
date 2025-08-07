@@ -724,26 +724,3 @@ select:focus-visible,
   font-weight: bold;
   border-radius: 9999px;
 }
-.header-actions {
-  color: var(--primary);
-  display: flex;
-  align-items: center;
-  gap: 1.25rem;
-  font-weight: 500;
-}
-.header-actions button,
-.header-actions a {
-  color: var(--primary);
-  transition: color 0.2s;
-}
-.header-actions button:hover,
-.header-actions a:hover {
-  color: var(--accent);
-}
-.header-actions .notification-badge,
-.header-actions #wishlistCount {
-  background: var(--accent);
-  color: var(--primary);
-  font-weight: bold;
-  border-radius: 9999px;
-}
