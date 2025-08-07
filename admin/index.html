@@ -29,7 +29,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16">
                 <div class="flex items-center">
-                    <h1 class="text-2xl font-playfair font-bold text-accent cursor-pointer" onclick="window.location.href='index.html'">BeautyFind</h1>
+                    <h1 id="logo" class="text-2xl font-playfair font-bold text-accent cursor-pointer">BeautyFind</h1>
                 </div>
                 
                 <!-- Main Navigation -->
@@ -42,11 +42,11 @@
                             </svg>
                         </button>
                         <div class="absolute top-full left-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-                            <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-50 rounded-t-lg" onclick="app.filterByCategory('skincare')">Skincare</a>
-                            <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-50" onclick="app.filterByCategory('makeup')">Makeup</a>
-                            <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-50" onclick="app.filterByCategory('haircare')">Hair Care</a>
-                            <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-50" onclick="app.filterByCategory('fragrance')">Fragrance</a>
-                            <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-gray-50 rounded-b-lg" onclick="app.filterByCategory('tools')">Tools & Accessories</a>
+                            <a href="#" data-category="skincare" class="block px-4 py-2 text-gray-800 hover:bg-gray-50 rounded-t-lg">Skincare</a>
+                            <a href="#" data-category="makeup" class="block px-4 py-2 text-gray-800 hover:bg-gray-50">Makeup</a>
+                            <a href="#" data-category="haircare" class="block px-4 py-2 text-gray-800 hover:bg-gray-50">Hair Care</a>
+                            <a href="#" data-category="fragrance" class="block px-4 py-2 text-gray-800 hover:bg-gray-50">Fragrance</a>
+                            <a href="#" data-category="tools" class="block px-4 py-2 text-gray-800 hover:bg-gray-50 rounded-b-lg">Tools & Accessories</a>
                         </div>
                     </div>
                     <a href="#deals" class="hover:text-accent transition-colors">Deals</a>
@@ -181,7 +181,7 @@
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
-                <div class="category-card group cursor-pointer" onclick="app.filterByCategory('skincare')">
+                <div class="category-card group cursor-pointer" data-category="skincare">
                     <div class="bg-white rounded-2xl p-6 text-center hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
                         <div class="w-16 h-16 bg-blush-pink rounded-full flex items-center justify-center mx-auto mb-4">
                             <span class="text-2xl">🧴</span>
@@ -191,7 +191,7 @@
                     </div>
                 </div>
                 
-                <div class="category-card group cursor-pointer" onclick="app.filterByCategory('makeup')">
+                <div class="category-card group cursor-pointer" data-category="makeup">
                     <div class="bg-white rounded-2xl p-6 text-center hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
                         <div class="w-16 h-16 bg-rose-gold rounded-full flex items-center justify-center mx-auto mb-4">
                             <span class="text-2xl">💄</span>
@@ -201,7 +201,7 @@
                     </div>
                 </div>
                 
-                <div class="category-card group cursor-pointer" onclick="app.filterByCategory('haircare')">
+                <div class="category-card group cursor-pointer" data-category="haircare">
                     <div class="bg-white rounded-2xl p-6 text-center hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
                         <div class="w-16 h-16 bg-accent rounded-full flex items-center justify-center mx-auto mb-4">
                             <span class="text-2xl">✨</span>
@@ -211,7 +211,7 @@
                     </div>
                 </div>
                 
-                <div class="category-card group cursor-pointer" onclick="app.filterByCategory('fragrance')">
+                <div class="category-card group cursor-pointer" data-category="fragrance">
                     <div class="bg-white rounded-2xl p-6 text-center hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
                         <div class="w-16 h-16 bg-blush-pink rounded-full flex items-center justify-center mx-auto mb-4">
                             <span class="text-2xl">🌸</span>
@@ -221,7 +221,7 @@
                     </div>
                 </div>
                 
-                <div class="category-card group cursor-pointer" onclick="app.filterByCategory('tools')">
+                <div class="category-card group cursor-pointer" data-category="tools">
                     <div class="bg-white rounded-2xl p-6 text-center hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
                         <div class="w-16 h-16 bg-rose-gold rounded-full flex items-center justify-center mx-auto mb-4">
                             <span class="text-2xl">🔧</span>
@@ -414,10 +414,10 @@
                 <div>
                     <h5 class="font-semibold mb-4">Categories</h5>
                     <ul class="space-y-2 text-gray-300">
-                        <li><a href="#" class="hover:text-accent" onclick="app.filterByCategory('skincare')">Skincare</a></li>
-                        <li><a href="#" class="hover:text-accent" onclick="app.filterByCategory('makeup')">Makeup</a></li>
-                        <li><a href="#" class="hover:text-accent" onclick="app.filterByCategory('haircare')">Hair Care</a></li>
-                        <li><a href="#" class="hover:text-accent" onclick="app.filterByCategory('fragrance')">Fragrance</a></li>
+                        <li><a href="#" data-category="skincare" class="hover:text-accent">Skincare</a></li>
+                        <li><a href="#" data-category="makeup" class="hover:text-accent">Makeup</a></li>
+                        <li><a href="#" data-category="haircare" class="hover:text-accent">Hair Care</a></li>
+                        <li><a href="#" data-category="fragrance" class="hover:text-accent">Fragrance</a></li>
                     </ul>
                 </div>
                 <div>

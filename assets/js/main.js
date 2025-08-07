@@ -565,3 +565,50 @@ class ProductManager {
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = ProductManager;
 }
+
+// Register event handlers after DOM is loaded
+if (typeof document !== 'undefined') {
+    document.addEventListener('DOMContentLoaded', () => {
+        const signInLink = document.getElementById('signInLink');
+        if (signInLink) signInLink.addEventListener('click', openSignInModal);
+
+        const signUpLink = document.getElementById('signUpLink');
+        if (signUpLink) signUpLink.addEventListener('click', openSignUpModal);
+
+        document.querySelectorAll('[data-dashboard]').forEach(el => {
+            el.addEventListener('click', () => app.openDashboard(el.dataset.dashboard));
+        });
+
+        document.querySelectorAll('[data-notification]').forEach(el => {
+            el.addEventListener('click', () => app.showNotification(el.dataset.notification));
+        });
+
+        document.querySelectorAll('[data-category]').forEach(el => {
+            el.addEventListener('click', () => app.filterByCategory(el.dataset.category));
+        });
+
+        const homeLink = document.getElementById('homeLink');
+        if (homeLink) homeLink.addEventListener('click', clearFiltersAndShowAll);
+
+        const startShoppingBtn = document.getElementById('startShoppingBtn');
+        if (startShoppingBtn) startShoppingBtn.addEventListener('click', scrollToProducts);
+
+        const howItWorksBtn = document.getElementById('howItWorksBtn');
+        if (howItWorksBtn) howItWorksBtn.addEventListener('click', showDemo);
+
+        const clearFiltersBtn = document.getElementById('clearFiltersBtn');
+        if (clearFiltersBtn) clearFiltersBtn.addEventListener('click', clearFilters);
+
+        const loadMoreBtn = document.getElementById('loadMoreBtn');
+        if (loadMoreBtn) loadMoreBtn.addEventListener('click', loadMoreProducts);
+
+        const closeWishlistModalBtn = document.getElementById('closeWishlistModalBtn');
+        if (closeWishlistModalBtn) closeWishlistModalBtn.addEventListener('click', closeWishlistModal);
+
+        const closeDashboardBtn = document.getElementById('closeDashboardBtn');
+        if (closeDashboardBtn) closeDashboardBtn.addEventListener('click', closeDashboard);
+
+        const logo = document.getElementById('logo');
+        if (logo) logo.addEventListener('click', () => { window.location.href = 'index.html'; });
+    });
+}

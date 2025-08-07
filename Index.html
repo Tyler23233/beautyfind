@@ -76,12 +76,12 @@
                             <!-- Profile Dropdown -->
                             <div id="profileDropdown" class="dropdown-menu hidden absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border z-50">
                                 <div class="py-1">
-                                    <a href="#" onclick="openSignInModal()" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors">Sign In</a>
-                                    <a href="#" onclick="openSignUpModal()" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors">Create Account</a>
+                                    <a href="#" id="signInLink" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors">Sign In</a>
+                                    <a href="#" id="signUpLink" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors">Create Account</a>
                                     <div class="border-t border-gray-100"></div>
-                                    <a href="#" onclick="app.openDashboard('profile')" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors">My Profile</a>
-                                    <a href="#" onclick="app.openDashboard('alerts')" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors">Price Alerts</a>
-                                    <a href="#" onclick="app.showNotification('Export feature coming soon!')" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors">Export Data</a>
+                                    <a href="#" data-dashboard="profile" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors">My Profile</a>
+                                    <a href="#" data-dashboard="alerts" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors">Price Alerts</a>
+                                    <a href="#" data-notification="Export feature coming soon!" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors">Export Data</a>
                                 </div>
                             </div>
                         </div>
@@ -95,9 +95,9 @@
                             </button>
                             <div id="quickMenu" class="dropdown-menu hidden absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border z-50">
                                 <div class="py-1">
-                                    <a href="#" onclick="app.showNotification('Add product feature coming soon!')" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors">Add Product</a>
-                                    <a href="#" onclick="app.openDashboard('alerts')" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors">Price Alerts</a>
-                                    <a href="#" onclick="app.showNotification('Export feature coming soon!')" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors">Export Wishlist</a>
+                                    <a href="#" data-notification="Add product feature coming soon!" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors">Add Product</a>
+                                    <a href="#" data-dashboard="alerts" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors">Price Alerts</a>
+                                    <a href="#" data-notification="Export feature coming soon!" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors">Export Wishlist</a>
                                 </div>
                             </div>
                         </div>
@@ -109,11 +109,11 @@
         <div class="bg-primary-light">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex justify-center space-x-8 py-3 overflow-x-auto scrollbar-hide">
-                    <a href="#" onclick="app.filterByCategory('skincare')" class="whitespace-nowrap text-sm hover:text-accent transition-colors font-medium">Skincare</a>
-                    <a href="#" onclick="app.filterByCategory('makeup')" class="whitespace-nowrap text-sm hover:text-accent transition-colors font-medium">Makeup</a>
-                    <a href="#" onclick="app.filterByCategory('haircare')" class="whitespace-nowrap text-sm hover:text-accent transition-colors font-medium">Hair Care</a>
-                    <a href="#" onclick="app.filterByCategory('fragrance')" class="whitespace-nowrap text-sm hover:text-accent transition-colors font-medium">Fragrance</a>
-                    <a href="#" onclick="app.filterByCategory('tools')" class="whitespace-nowrap text-sm hover:text-accent transition-colors font-medium">Tools</a>
+                    <a href="#" data-category="skincare" class="whitespace-nowrap text-sm hover:text-accent transition-colors font-medium">Skincare</a>
+                    <a href="#" data-category="makeup" class="whitespace-nowrap text-sm hover:text-accent transition-colors font-medium">Makeup</a>
+                    <a href="#" data-category="haircare" class="whitespace-nowrap text-sm hover:text-accent transition-colors font-medium">Hair Care</a>
+                    <a href="#" data-category="fragrance" class="whitespace-nowrap text-sm hover:text-accent transition-colors font-medium">Fragrance</a>
+                    <a href="#" data-category="tools" class="whitespace-nowrap text-sm hover:text-accent transition-colors font-medium">Tools</a>
                 </div>
             </div>
         </div>
@@ -122,7 +122,7 @@
     <div class="bg-gray-100 border-b sticky top-[104px] z-40 hidden" id="breadcrumbNav">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2">
             <nav class="flex text-sm text-gray-600">
-                <a href="#" onclick="clearFiltersAndShowAll()" class="hover:text-accent transition-colors">Home</a>
+                <a href="#" id="homeLink" class="hover:text-accent transition-colors">Home</a>
                 <span class="mx-2">/</span>
                 <span id="currentSection" class="text-gray-900">All Products</span>
             </nav>
@@ -153,7 +153,7 @@
                 </div>
             </div>
             <div class="p-4 text-center">
-                <button onclick="app.openDashboard('alerts')" class="text-accent hover:text-yellow-600 text-sm font-medium">View All Alerts</button>
+                <button data-dashboard="alerts" class="text-accent hover:text-yellow-600 text-sm font-medium">View All Alerts</button>
             </div>
         </div>
     </div>
@@ -178,10 +178,10 @@
                     Your personal beauty curator in one place.
                 </p>
                 <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                    <button onclick="scrollToProducts()" class="px-8 py-4 bg-black hover:bg-gray-800 text-white font-semibold rounded-2xl transition-all duration-300 transform hover:scale-105">
+                    <button id="startShoppingBtn" class="px-8 py-4 bg-black hover:bg-gray-800 text-white font-semibold rounded-2xl transition-all duration-300 transform hover:scale-105">
                         Start Shopping
                     </button>
-                    <button onclick="showDemo()" class="px-8 py-4 border-2 border-gray-300 hover:border-gray-400 text-gray-700 font-semibold rounded-2xl transition-all duration-300">
+                    <button id="howItWorksBtn" class="px-8 py-4 border-2 border-gray-300 hover:border-gray-400 text-gray-700 font-semibold rounded-2xl transition-all duration-300">
                         How It Works
                     </button>
                 </div>
@@ -216,7 +216,7 @@
                     <option value="50-100">$50 - $100</option>
                     <option value="100+">$100+</option>
                 </select>
-                <button onclick="clearFilters()" class="text-accent hover:text-yellow-600 font-medium">
+                <button id="clearFiltersBtn" class="text-accent hover:text-yellow-600 font-medium">
                     Clear All
                 </button>
             </div>
@@ -229,7 +229,7 @@
             <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"></div>
             <div id="noProductsMsg" class="col-span-full text-center text-gray-500 mt-10 hidden">No products found.</div>
             <div class="text-center mt-12">
-                <button onclick="loadMoreProducts()" class="bg-primary hover:bg-gray-800 text-white font-semibold px-8 py-3 rounded-full transition-colors">
+                <button id="loadMoreBtn" class="bg-primary hover:bg-gray-800 text-white font-semibold px-8 py-3 rounded-full transition-colors">
                     Load More Products
                 </button>
             </div>
@@ -241,7 +241,7 @@
             <div class="bg-white rounded-2xl max-w-4xl w-full p-6 max-h-[90vh] overflow-y-auto">
                 <div class="flex justify-between items-center mb-6">
                     <h3 class="text-2xl font-playfair font-bold text-primary">My Wishlist</h3>
-                    <button onclick="closeWishlistModal()" class="text-gray-400 hover:text-gray-600">
+                    <button id="closeWishlistModalBtn" class="text-gray-400 hover:text-gray-600">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                         </svg>
@@ -259,7 +259,7 @@
             <div class="bg-white rounded-2xl max-w-4xl w-full p-6 max-h-[90vh] overflow-y-auto">
                 <div class="flex justify-between items-center mb-6">
                     <h3 id="dashboardTitle" class="text-2xl font-playfair font-bold text-primary">Dashboard</h3>
-                    <button onclick="closeDashboard()" class="text-gray-400 hover:text-gray-600">
+                    <button id="closeDashboardBtn" class="text-gray-400 hover:text-gray-600">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                         </svg>
