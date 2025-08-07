@@ -1,0 +1,34 @@
+    <!-- Enhanced Filters -->
+    <section class="bg-white py-6 border-b border-gray-200 sticky top-[104px] z-40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-wrap gap-4 items-center">
+                <h3 class="font-semibold text-gray-700">Filter by:</h3>
+                <select id="categoryFilter" onchange="filterProducts()" class="border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-accent focus:border-transparent">
+                    <option value="">All Categories</option>
+                    <option value="skincare">Skincare</option>
+                    <option value="makeup">Makeup</option>
+                    <option value="haircare">Hair Care</option>
+                    <option value="fragrance">Fragrance</option>
+                    <option value="tools">Tools & Accessories</option>
+                </select>
+                <select id="brandFilter" onchange="filterProducts()" class="border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-accent focus:border-transparent">
+                    <option value="">All Brands</option>
+                    <option value="Fenty Beauty">Fenty Beauty</option>
+                    <option value="Rare Beauty">Rare Beauty</option>
+                    <option value="Glossier">Glossier</option>
+                    <option value="Drunk Elephant">Drunk Elephant</option>
+                    <option value="Charlotte Tilbury">Charlotte Tilbury</option>
+                </select>
+                <select id="priceFilter" onchange="filterProducts()" class="border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-accent focus:border-transparent">
+                    <option value="">All Prices</option>
+                    <option value="0-25">Under $25</option>
+                    <option value="25-50">$25 - $50</option>
+                    <option value="50-100">$50 - $100</option>
+                    <option value="100+">$100+</option>
+                </select>
+                <button onclick="clearFilters()" class="text-accent hover:text-yellow-600 font-medium">
+                    Clear All
+                </button>
+            </div>
+        </div>
+    </section>

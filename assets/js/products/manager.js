@@ -1,5 +1,5 @@
 // Product Management System - FIXED VERSION WITH USD PRICES
-class ProductManager {
+export default class ProductManager {
     constructor() {
         this.products = [];
         this.categories = ['skincare', 'makeup', 'haircare', 'fragrance', 'tools'];
