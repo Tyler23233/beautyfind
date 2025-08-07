@@ -1,123 +1,136 @@
-
 // Admin Dashboard Management
 class AdminDashboard {
-    constructor() {
-        this.currentSection = 'dashboard';
-        this.pendingProducts = [];
-        this.allProducts = [];
-        this.users = [];
-        this.analytics = {};
-        
-        this.init();
-    }
+  constructor() {
+    this.currentSection = 'dashboard';
+    this.pendingProducts = [];
+    this.allProducts = [];
+    this.users = [];
+    this.analytics = {};
 
-    init() {
-        this.setupNavigation();
-        this.loadInitialData();
-        this.setupEventListeners();
-        this.loadSection('dashboard');
-    }
+    this.init();
+  }
 
-    setupNavigation() {
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                const section = link.dataset.section;
-                this.switchSection(section);
-            });
-        });
-    }
+  init() {
+    this.setupNavigation();
+    this.loadInitialData();
+    this.setupEventListeners();
+    this.loadSection('dashboard');
+  }
 
-    setupEventListeners() {
-        // Review modal
-        document.getElementById('closeReviewModal').addEventListener('click', () => {
-            this.closeReviewModal();
-        });
-        
-        // Close modal on backdrop click
-        document.getElementById('reviewModal').addEventListener('click', (e) => {
-            if (e.target.id === 'reviewModal') {
-                this.closeReviewModal();
-            }
-        });
-    }
+  setupNavigation() {
+    document.querySelectorAll('.nav-link').forEach((link) => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const section = link.dataset.section;
+        this.switchSection(section);
+      });
+    });
+  }
 
-    async loadInitialData() {
-        // Load sample data for demo
-        this.pendingProducts = await this.generateSamplePendingProducts();
-        this.allProducts = await ProductManager.getFilteredProducts({}, 'popular', 1, 50);
-        this.users = await this.generateSampleUsers();
-        this.analytics = await this.generateSampleAnalytics();
-        
-        // Update pending count in sidebar
-        document.getElementById('pendingCount').textContent = this.pendingProducts.length;
-    }
+  setupEventListeners() {
+    // Review modal
+    document
+      .getElementById('closeReviewModal')
+      .addEventListener('click', () => {
+        this.closeReviewModal();
+      });
 
-    switchSection(section) {
-        // Update active nav link
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.classList.remove('active');
-        });
-        document.querySelector(`[data-section="${section}"]`).classList.add('active');
-        
-        this.currentSection = section;
-        this.loadSection(section);
-    }
+    // Close modal on backdrop click
+    document.getElementById('reviewModal').addEventListener('click', (e) => {
+      if (e.target.id === 'reviewModal') {
+        this.closeReviewModal();
+      }
+    });
+  }
 
-    loadSection(section) {
-        const pageTitle = document.getElementById('pageTitle');
-        const pageSubtitle = document.getElementById('pageSubtitle');
-        const pageContent = document.getElementById('pageContent');
-        
-        switch(section) {
-            case 'dashboard':
-                pageTitle.textContent = 'Dashboard';
-                pageSubtitle.textContent = "Welcome back! Here's what's happening with your beauty platform.";
-                pageContent.innerHTML = this.renderDashboard();
-                this.initializeCharts();
-                break;
-                
-            case 'pending':
-                pageTitle.textContent = 'Pending Approval';
-                pageSubtitle.textContent = 'Review and approve user-submitted products.';
-                pageContent.innerHTML = this.renderPendingProducts();
-                break;
-                
-            case 'products':
-                pageTitle.textContent = 'All Products';
-                pageSubtitle.textContent = 'Manage your product catalog.';
-                pageContent.innerHTML = this.renderAllProducts();
-                break;
-                
-            case 'categories':
-                pageTitle.textContent = 'Categories';
-                pageSubtitle.textContent = 'Manage product categories and organization.';
-                pageContent.innerHTML = this.renderCategories();
-                break;
-                
-            case 'analytics':
-                pageTitle.textContent = 'Analytics';
-                pageSubtitle.textContent = 'Track performance and user engagement.';
-                pageContent.innerHTML = this.renderAnalytics();
-                this.initializeAnalyticsCharts();
-                break;
-                
-            case 'users':
-                pageTitle.textContent = 'Users';
-                pageSubtitle.textContent = 'Manage user accounts and activity.';
-                pageContent.innerHTML = this.renderUsers();
-                break;
-                
-            case 'settings':
-                pageTitle.textContent = 'Settings';
-                pageSubtitle.textContent = 'Configure platform settings and preferences.';
-                pageContent.innerHTML = this.renderSettings();
-                break;
-        }
-    }
+  async loadInitialData() {
+    // Load sample data for demo
+    this.pendingProducts = await this.generateSamplePendingProducts();
+    this.allProducts = await ProductManager.getFilteredProducts(
+      {},
+      'popular',
+      1,
+      50,
+    );
+    this.users = await this.generateSampleUsers();
+    this.analytics = await this.generateSampleAnalytics();
 
-    renderDashboard() {
-        return `
+    // Update pending count in sidebar
+    document.getElementById('pendingCount').textContent =
+      this.pendingProducts.length;
+  }
+
+  switchSection(section) {
+    // Update active nav link
+    document.querySelectorAll('.nav-link').forEach((link) => {
+      link.classList.remove('active');
+    });
+    document
+      .querySelector(`[data-section="${section}"]`)
+      .classList.add('active');
+
+    this.currentSection = section;
+    this.loadSection(section);
+  }
+
+  loadSection(section) {
+    const pageTitle = document.getElementById('pageTitle');
+    const pageSubtitle = document.getElementById('pageSubtitle');
+    const pageContent = document.getElementById('pageContent');
+
+    switch (section) {
+      case 'dashboard':
+        pageTitle.textContent = 'Dashboard';
+        pageSubtitle.textContent =
+          "Welcome back! Here's what's happening with your beauty platform.";
+        pageContent.innerHTML = this.renderDashboard();
+        this.initializeCharts();
+        break;
+
+      case 'pending':
+        pageTitle.textContent = 'Pending Approval';
+        pageSubtitle.textContent =
+          'Review and approve user-submitted products.';
+        pageContent.innerHTML = this.renderPendingProducts();
+        break;
+
+      case 'products':
+        pageTitle.textContent = 'All Products';
+        pageSubtitle.textContent = 'Manage your product catalog.';
+        pageContent.innerHTML = this.renderAllProducts();
+        break;
+
+      case 'categories':
+        pageTitle.textContent = 'Categories';
+        pageSubtitle.textContent =
+          'Manage product categories and organization.';
+        pageContent.innerHTML = this.renderCategories();
+        break;
+
+      case 'analytics':
+        pageTitle.textContent = 'Analytics';
+        pageSubtitle.textContent = 'Track performance and user engagement.';
+        pageContent.innerHTML = this.renderAnalytics();
+        this.initializeAnalyticsCharts();
+        break;
+
+      case 'users':
+        pageTitle.textContent = 'Users';
+        pageSubtitle.textContent = 'Manage user accounts and activity.';
+        pageContent.innerHTML = this.renderUsers();
+        break;
+
+      case 'settings':
+        pageTitle.textContent = 'Settings';
+        pageSubtitle.textContent =
+          'Configure platform settings and preferences.';
+        pageContent.innerHTML = this.renderSettings();
+        break;
+    }
+  }
+
+  renderDashboard() {
+    return `
             <!-- Stats Grid -->
             <div class="stats-grid mb-8">
                 <div class="stat-card">
@@ -196,11 +209,11 @@ class AdminDashboard {
                 </div>
             </div>
         `;
-    }
+  }
 
-    renderPendingProducts() {
-        if (this.pendingProducts.length === 0) {
-            return `
+  renderPendingProducts() {
+    if (this.pendingProducts.length === 0) {
+      return `
                 <div class="empty-state">
                     <svg class="empty-state-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
@@ -209,9 +222,9 @@ class AdminDashboard {
                     <p class="empty-state-description">No products pending review at the moment.</p>
                 </div>
             `;
-        }
+    }
 
-        return `
+    return `
             <div class="filter-bar">
                 <div class="filter-row">
                     <input type="text" id="pendingSearch" placeholder="Search pending products..." class="search-input">
@@ -232,7 +245,9 @@ class AdminDashboard {
             </div>
             
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                ${this.pendingProducts.map(product => `
+                ${this.pendingProducts
+                  .map(
+                    (product) => `
                     <div class="admin-product-card">
                         <div class="flex">
                             <img src="${product.image}" alt="${product.name}" class="admin-product-image">
@@ -259,13 +274,15 @@ class AdminDashboard {
                             </div>
                         </div>
                     </div>
-                `).join('')}
+                `,
+                  )
+                  .join('')}
             </div>
         `;
-    }
+  }
 
-    renderAllProducts() {
-        return `
+  renderAllProducts() {
+    return `
             <div class="filter-bar">
                 <div class="filter-row">
                     <input type="text" id="productSearch" placeholder="Search products..." class="search-input">
@@ -299,7 +316,9 @@ class AdminDashboard {
                         </tr>
                     </thead>
                     <tbody>
-                        ${this.allProducts.map(product => `
+                        ${this.allProducts
+                          .map(
+                            (product) => `
                             <tr>
                                 <td>
                                     <div class="flex items-center">
@@ -325,19 +344,23 @@ class AdminDashboard {
                                     </div>
                                 </td>
                             </tr>
-                        `).join('')}
+                        `,
+                          )
+                          .join('')}
                     </tbody>
                 </table>
             </div>
         `;
-    }
+  }
 
-    renderCategories() {
-        const categories = ProductManager.getCategories();
-        
-        return `
+  renderCategories() {
+    const categories = ProductManager.getCategories();
+
+    return `
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                ${categories.map(category => `
+                ${categories
+                  .map(
+                    (category) => `
                     <div class="stat-card">
                         <div class="flex items-center justify-between mb-4">
                             <h3 class="text-lg font-semibold text-primary capitalize">${category.label}</h3>
@@ -347,11 +370,13 @@ class AdminDashboard {
                             </div>
                         </div>
                         <div class="text-2xl font-bold text-accent mb-2">
-                            ${this.allProducts.filter(p => p.category === category.value).length}
+                            ${this.allProducts.filter((p) => p.category === category.value).length}
                         </div>
                         <div class="text-sm text-gray-600">Products in category</div>
                     </div>
-                `).join('')}
+                `,
+                  )
+                  .join('')}
                 
                 <!-- Add New Category Card -->
                 <div class="stat-card border-2 border-dashed border-gray-300 hover:border-accent transition-colors cursor-pointer" onclick="adminDashboard.showAddCategoryModal()">
@@ -365,10 +390,10 @@ class AdminDashboard {
                 </div>
             </div>
         `;
-    }
+  }
 
-    renderAnalytics() {
-        return `
+  renderAnalytics() {
+    return `
             <!-- Key Metrics -->
             <div class="stats-grid mb-8">
                 <div class="stat-card">
@@ -460,10 +485,10 @@ class AdminDashboard {
                 </div>
             </div>
         `;
-    }
+  }
 
-    renderUsers() {
-        return `
+  renderUsers() {
+    return `
             <div class="filter-bar">
                 <div class="filter-row">
                     <input type="text" id="userSearch" placeholder="Search users..." class="search-input">
@@ -493,7 +518,9 @@ class AdminDashboard {
                         </tr>
                     </thead>
                     <tbody>
-                        ${this.users.map(user => `
+                        ${this.users
+                          .map(
+                            (user) => `
                             <tr>
                                 <td>
                                     <div class="flex items-center">
@@ -518,15 +545,17 @@ class AdminDashboard {
                                     </div>
                                 </td>
                             </tr>
-                        `).join('')}
+                        `,
+                          )
+                          .join('')}
                     </tbody>
                 </table>
             </div>
         `;
-    }
+  }
 
-    renderSettings() {
-        return `
+  renderSettings() {
+    return `
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 <!-- General Settings -->
                 <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
@@ -623,17 +652,17 @@ class AdminDashboard {
                 </div>
             </div>
         `;
-    }
+  }
 
-    // Product Review Modal
-    reviewProduct(productId) {
-        const product = this.pendingProducts.find(p => p.id === productId);
-        if (!product) return;
+  // Product Review Modal
+  reviewProduct(productId) {
+    const product = this.pendingProducts.find((p) => p.id === productId);
+    if (!product) return;
 
-        const modal = document.getElementById('reviewModal');
-        const content = document.getElementById('reviewContent');
-        
-        content.innerHTML = `
+    const modal = document.getElementById('reviewModal');
+    const content = document.getElementById('reviewContent');
+
+    content.innerHTML = `
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div>
                     <img src="${product.image}" alt="${product.name}" class="w-full h-64 object-cover rounded-lg mb-4">
@@ -703,272 +732,345 @@ class AdminDashboard {
                 </div>
             </div>
         `;
-        
-        modal.classList.remove('hidden');
-        document.body.classList.add('overflow-hidden');
-    }
 
-    closeReviewModal() {
-        document.getElementById('reviewModal').classList.add('hidden');
-        document.body.classList.remove('overflow-hidden');
-    }
+    modal.classList.remove('hidden');
+    document.body.classList.add('overflow-hidden');
+  }
 
-    approveProduct(productId) {
-        const productIndex = this.pendingProducts.findIndex(p => p.id === productId);
-        if (productIndex === -1) return;
+  closeReviewModal() {
+    document.getElementById('reviewModal').classList.add('hidden');
+    document.body.classList.remove('overflow-hidden');
+  }
 
-        // Move product to approved list
-        const product = this.pendingProducts[productIndex];
-        this.pendingProducts.splice(productIndex, 1);
-        
-        // Update UI
-        this.showNotification(`${product.name} has been approved!`, 'success');
-        this.updatePendingCount();
-        this.loadSection('pending');
-    }
+  approveProduct(productId) {
+    const productIndex = this.pendingProducts.findIndex(
+      (p) => p.id === productId,
+    );
+    if (productIndex === -1) return;
 
-    rejectProduct(productId) {
-        const productIndex = this.pendingProducts.findIndex(p => p.id === productId);
-        if (productIndex === -1) return;
+    // Move product to approved list
+    const product = this.pendingProducts[productIndex];
+    this.pendingProducts.splice(productIndex, 1);
 
-        const product = this.pendingProducts[productIndex];
-        this.pendingProducts.splice(productIndex, 1);
-        
-        this.showNotification(`${product.name} has been rejected`, 'error');
-        this.updatePendingCount();
-        this.loadSection('pending');
-        this.closeReviewModal();
-    }
+    // Update UI
+    this.showNotification(`${product.name} has been approved!`, 'success');
+    this.updatePendingCount();
+    this.loadSection('pending');
+  }
 
-    approveProductWithEdits(productId) {
-        // Get edited values
-        const editedProduct = {
-            name: document.getElementById('editName').value,
-            brand: document.getElementById('editBrand').value,
-            category: document.getElementById('editCategory').value,
-            price: parseFloat(document.getElementById('editPrice').value),
-            description: document.getElementById('editDescription').value,
-            tags: document.getElementById('editTags').value.split(',').map(tag => tag.trim())
-        };
+  rejectProduct(productId) {
+    const productIndex = this.pendingProducts.findIndex(
+      (p) => p.id === productId,
+    );
+    if (productIndex === -1) return;
 
-        // Apply edits and approve
-        this.approveProduct(productId);
-        this.closeReviewModal();
-    }
+    const product = this.pendingProducts[productIndex];
+    this.pendingProducts.splice(productIndex, 1);
 
-    updatePendingCount() {
-        document.getElementById('pendingCount').textContent = this.pendingProducts.length;
-    }
+    this.showNotification(`${product.name} has been rejected`, 'error');
+    this.updatePendingCount();
+    this.loadSection('pending');
+    this.closeReviewModal();
+  }
 
-    // Chart initialization
-    initializeCharts() {
-        // Product Performance Chart
-        const productCtx = document.getElementById('productChart');
-        if (productCtx) {
-            new Chart(productCtx, {
-                type: 'bar',
-                data: {
-                    labels: ['Fenty Foundation', 'Rare Blush', 'Glossier Cloud Paint', 'Drunk Elephant Serum'],
-                    datasets: [{
-                        label: 'Clicks',
-                        data: [120, 89, 76, 95],
-                        backgroundColor: '#D4AF37',
-                        borderRadius: 4
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            display: false
-                        }
-                    },
-                    scales: {
-                        y: {
-                            beginAtZero: true
-                        }
-                    }
-                }
-            });
-        }
+  approveProductWithEdits(productId) {
+    // Get edited values
+    const editedProduct = {
+      name: document.getElementById('editName').value,
+      brand: document.getElementById('editBrand').value,
+      category: document.getElementById('editCategory').value,
+      price: parseFloat(document.getElementById('editPrice').value),
+      description: document.getElementById('editDescription').value,
+      tags: document
+        .getElementById('editTags')
+        .value.split(',')
+        .map((tag) => tag.trim()),
+    };
 
-        // User Engagement Chart
-        const userCtx = document.getElementById('userChart');
-        if (userCtx) {
-            new Chart(userCtx, {
-                type: 'line',
-                data: {
-                    labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-                    datasets: [{
-                        label: 'Active Users',
-                        data: [65, 78, 82, 69, 91, 88, 76],
-                        borderColor: '#D4AF37',
-                        backgroundColor: 'rgba(212, 175, 55, 0.1)',
-                        fill: true,
-                        tension: 0.4
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            display: false
-                        }
-                    },
-                    scales: {
-                        y: {
-                            beginAtZero: true
-                        }
-                    }
-                }
-            });
-        }
-    }
+    // Apply edits and approve
+    this.approveProduct(productId);
+    this.closeReviewModal();
+  }
 
-    initializeAnalyticsCharts() {
-        // Traffic Chart
-        const trafficCtx = document.getElementById('trafficChart');
-        if (trafficCtx) {
-            new Chart(trafficCtx, {
-                type: 'line',
-                data: {
-                    labels: Array.from({length: 30}, (_, i) => i + 1),
-                    datasets: [{
-                        label: 'Page Views',
-                        data: Array.from({length: 30}, () => Math.floor(Math.random() * 1000) + 500),
-                        borderColor: '#D4AF37',
-                        backgroundColor: 'rgba(212, 175, 55, 0.1)',
-                        fill: true,
-                        tension: 0.4
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        y: {
-                            beginAtZero: true
-                        }
-                    }
-                }
-            });
-        }
+  updatePendingCount() {
+    document.getElementById('pendingCount').textContent =
+      this.pendingProducts.length;
+  }
 
-        // Revenue Chart
-        const revenueCtx = document.getElementById('revenueChart');
-        if (revenueCtx) {
-            new Chart(revenueCtx, {
-                type: 'doughnut',
-                data: {
-                    labels: ['Skincare', 'Makeup', 'Hair Care', 'Fragrance', 'Tools'],
-                    datasets: [{
-                        data: [30, 25, 20, 15, 10],
-                        backgroundColor: [
-                            '#D4AF37',
-                            '#F8E1E7',
-                            '#EEC9B7',
-                            '#22223B',
-                            '#18181B'
-                        ]
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false
-                }
-            });
-        }
-    }
-
-    // Helper methods for generating sample data
-    async generateSamplePendingProducts() {
-        return [
+  // Chart initialization
+  initializeCharts() {
+    // Product Performance Chart
+    const productCtx = document.getElementById('productChart');
+    if (productCtx) {
+      new Chart(productCtx, {
+        type: 'bar',
+        data: {
+          labels: [
+            'Fenty Foundation',
+            'Rare Blush',
+            'Glossier Cloud Paint',
+            'Drunk Elephant Serum',
+          ],
+          datasets: [
             {
-                id: 'pending_1',
-                name: 'Tatcha The Water Cream',
-                brand: 'Tatcha',
-                category: 'skincare',
-                price: 68,
-                image: 'https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=400&h=400&fit=crop',
-                sourceUrl: 'https://www.sephora.com/product/tatcha-water-cream',
-                submittedBy: 'user123@email.com',
-                submittedAt: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000),
-                status: 'pending'
+              label: 'Clicks',
+              data: [120, 89, 76, 95],
+              backgroundColor: '#D4AF37',
+              borderRadius: 4,
             },
-            {
-                id: 'pending_2',
-                name: 'Glow Recipe Watermelon Glow Niacinamide Dew Drops',
-                brand: 'Glow Recipe',
-                category: 'skincare',
-                price: 34,
-                image: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=400&fit=crop',
-                sourceUrl: 'https://www.ulta.com/p/watermelon-glow-niacinamide-dew-drops',
-                submittedBy: 'beautylov3r@email.com',
-                submittedAt: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000),
-                status: 'pending'
-            }
-        ];
-    }
-
-    async generateSampleUsers() {
-        return [
-            {
-                id: 'user_1',
-                name: 'Sarah Johnson',
-                email: 'sarah.j@email.com',
-                joinedAt: new Date('2024-01-15'),
-                wishlistCount: 12,
-                status: 'active'
+          ],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              display: false,
             },
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+            },
+          },
+        },
+      });
+    }
+
+    // User Engagement Chart
+    const userCtx = document.getElementById('userChart');
+    if (userCtx) {
+      new Chart(userCtx, {
+        type: 'line',
+        data: {
+          labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+          datasets: [
             {
-                id: 'user_2',
-                name: 'Emma Wilson',
-                email: 'emma.w@email.com',
-                joinedAt: new Date('2024-02-01'),
-                wishlistCount: 8,
-                status: 'active'
-            }
-        ];
+              label: 'Active Users',
+              data: [65, 78, 82, 69, 91, 88, 76],
+              borderColor: '#D4AF37',
+              backgroundColor: 'rgba(212, 175, 55, 0.1)',
+              fill: true,
+              tension: 0.4,
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              display: false,
+            },
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+            },
+          },
+        },
+      });
+    }
+  }
+
+  initializeAnalyticsCharts() {
+    // Traffic Chart
+    const trafficCtx = document.getElementById('trafficChart');
+    if (trafficCtx) {
+      new Chart(trafficCtx, {
+        type: 'line',
+        data: {
+          labels: Array.from({ length: 30 }, (_, i) => i + 1),
+          datasets: [
+            {
+              label: 'Page Views',
+              data: Array.from(
+                { length: 30 },
+                () => Math.floor(Math.random() * 1000) + 500,
+              ),
+              borderColor: '#D4AF37',
+              backgroundColor: 'rgba(212, 175, 55, 0.1)',
+              fill: true,
+              tension: 0.4,
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            y: {
+              beginAtZero: true,
+            },
+          },
+        },
+      });
     }
 
-    async generateSampleAnalytics() {
-        return {
-            revenue: 12340,
-            pageViews: 24567,
-            affiliateClicks: 3421,
-            wishlistAdds: 1892
-        };
+    // Revenue Chart
+    const revenueCtx = document.getElementById('revenueChart');
+    if (revenueCtx) {
+      new Chart(revenueCtx, {
+        type: 'doughnut',
+        data: {
+          labels: ['Skincare', 'Makeup', 'Hair Care', 'Fragrance', 'Tools'],
+          datasets: [
+            {
+              data: [30, 25, 20, 15, 10],
+              backgroundColor: [
+                '#D4AF37',
+                '#F8E1E7',
+                '#EEC9B7',
+                '#22223B',
+                '#18181B',
+              ],
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+        },
+      });
     }
+  }
 
-    generateRecentActivity() {
-        const activities = [
-            { type: 'product_added', message: 'New product "Rare Beauty Blush" added to catalog', time: '2 hours ago' },
-            { type: 'user_registered', message: 'New user Sarah Johnson registered', time: '4 hours ago' },
-            { type: 'product_approved', message: 'Product "Glossier Cloud Paint" approved', time: '6 hours ago' },
-            { type: 'affiliate_click', message: '5 new affiliate clicks on Fenty Foundation', time: '8 hours ago' }
-        ];
+  // Helper methods for generating sample data
+  async generateSamplePendingProducts() {
+    return [
+      {
+        id: 'pending_1',
+        name: 'Tatcha The Water Cream',
+        brand: 'Tatcha',
+        category: 'skincare',
+        price: 68,
+        image:
+          'https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=400&h=400&fit=crop',
+        sourceUrl: 'https://www.sephora.com/product/tatcha-water-cream',
+        submittedBy: 'user123@email.com',
+        submittedAt: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000),
+        status: 'pending',
+      },
+      {
+        id: 'pending_2',
+        name: 'Glow Recipe Watermelon Glow Niacinamide Dew Drops',
+        brand: 'Glow Recipe',
+        category: 'skincare',
+        price: 34,
+        image:
+          'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=400&fit=crop',
+        sourceUrl:
+          'https://www.ulta.com/p/watermelon-glow-niacinamide-dew-drops',
+        submittedBy: 'beautylov3r@email.com',
+        submittedAt: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000),
+        status: 'pending',
+      },
+    ];
+  }
 
-        return activities.map(activity => `
+  async generateSampleUsers() {
+    return [
+      {
+        id: 'user_1',
+        name: 'Sarah Johnson',
+        email: 'sarah.j@email.com',
+        joinedAt: new Date('2024-01-15'),
+        wishlistCount: 12,
+        status: 'active',
+      },
+      {
+        id: 'user_2',
+        name: 'Emma Wilson',
+        email: 'emma.w@email.com',
+        joinedAt: new Date('2024-02-01'),
+        wishlistCount: 8,
+        status: 'active',
+      },
+    ];
+  }
+
+  async generateSampleAnalytics() {
+    return {
+      revenue: 12340,
+      pageViews: 24567,
+      affiliateClicks: 3421,
+      wishlistAdds: 1892,
+    };
+  }
+
+  generateRecentActivity() {
+    const activities = [
+      {
+        type: 'product_added',
+        message: 'New product "Rare Beauty Blush" added to catalog',
+        time: '2 hours ago',
+      },
+      {
+        type: 'user_registered',
+        message: 'New user Sarah Johnson registered',
+        time: '4 hours ago',
+      },
+      {
+        type: 'product_approved',
+        message: 'Product "Glossier Cloud Paint" approved',
+        time: '6 hours ago',
+      },
+      {
+        type: 'affiliate_click',
+        message: '5 new affiliate clicks on Fenty Foundation',
+        time: '8 hours ago',
+      },
+    ];
+
+    return activities
+      .map(
+        (activity) => `
             <div class="flex items-center p-3 border border-gray-200 rounded-lg">
                 <div class="flex-1">
                     <p class="text-sm font-medium text-gray-900">${activity.message}</p>
                     <p class="text-xs text-gray-500">${activity.time}</p>
                 </div>
             </div>
-        `).join('');
-    }
+        `,
+      )
+      .join('');
+  }
 
-    generateTopProductsData() {
-        const topProducts = [
-            { name: 'Fenty Beauty Foundation', category: 'Makeup', clicks: 1234, conversions: 89, revenue: '$2,140' },
-            { name: 'Drunk Elephant Serum', category: 'Skincare', clicks: 987, conversions: 67, revenue: '$1,890' },
-            { name: 'Rare Beauty Blush', category: 'Makeup', clicks: 856, conversions: 54, revenue: '$1,420' },
-            { name: 'Olaplex Hair Treatment', category: 'Hair Care', clicks: 743, conversions: 43, revenue: '$1,120' }
-        ];
+  generateTopProductsData() {
+    const topProducts = [
+      {
+        name: 'Fenty Beauty Foundation',
+        category: 'Makeup',
+        clicks: 1234,
+        conversions: 89,
+        revenue: '$2,140',
+      },
+      {
+        name: 'Drunk Elephant Serum',
+        category: 'Skincare',
+        clicks: 987,
+        conversions: 67,
+        revenue: '$1,890',
+      },
+      {
+        name: 'Rare Beauty Blush',
+        category: 'Makeup',
+        clicks: 856,
+        conversions: 54,
+        revenue: '$1,420',
+      },
+      {
+        name: 'Olaplex Hair Treatment',
+        category: 'Hair Care',
+        clicks: 743,
+        conversions: 43,
+        revenue: '$1,120',
+      },
+    ];
 
-        return topProducts.map(product => `
+    return topProducts
+      .map(
+        (product) => `
             <tr>
                 <td>${product.name}</td>
                 <td>${product.category}</td>
@@ -976,13 +1078,15 @@ class AdminDashboard {
                 <td>${product.conversions}</td>
                 <td class="font-semibold text-accent">${product.revenue}</td>
             </tr>
-        `).join('');
-    }
+        `,
+      )
+      .join('');
+  }
 
-    showNotification(message, type = 'info') {
-        const notification = document.createElement('div');
-        notification.className = `alert ${type} fixed top-4 right-4 z-50 min-w-80`;
-        notification.innerHTML = `
+  showNotification(message, type = 'info') {
+    const notification = document.createElement('div');
+    notification.className = `alert ${type} fixed top-4 right-4 z-50 min-w-80`;
+    notification.innerHTML = `
             <div class="flex items-center justify-between">
                 <span>${message}</span>
                 <button onclick="this.parentElement.parentElement.remove()" class="ml-4 hover:opacity-70">
@@ -992,20 +1096,23 @@ class AdminDashboard {
                 </button>
             </div>
         `;
-        
-        document.body.appendChild(notification);
-        
-        setTimeout(() => {
-            if (notification.parentElement) {
-                notification.remove();
-            }
-        }, 5000);
-    }
 
-    showAddCategoryModal() {
-        // Implementation for adding new categories
-        this.showNotification('Add category functionality would be implemented here', 'info');
-    }
+    document.body.appendChild(notification);
+
+    setTimeout(() => {
+      if (notification.parentElement) {
+        notification.remove();
+      }
+    }, 5000);
+  }
+
+  showAddCategoryModal() {
+    // Implementation for adding new categories
+    this.showNotification(
+      'Add category functionality would be implemented here',
+      'info',
+    );
+  }
 }
 
 // Initialize the admin dashboard
