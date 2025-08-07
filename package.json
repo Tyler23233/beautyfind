@@ -1,0 +1,14 @@
+{
+  "name": "beautyfind",
+  "version": "1.0.0",
+  "description": "BeautyFind web app",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "test": "echo 'No tests'"
+  },
+  "devDependencies": {
+    "vite": "^7.1.0"
+  }
+}

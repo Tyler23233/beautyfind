@@ -1,5 +1,5 @@
 // Authentication and User Management
-class AuthManager {
+export default class AuthManager {
     constructor() {
         this.currentUser = null;
         this.isAuthenticated = false;
